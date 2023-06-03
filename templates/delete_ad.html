@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Supprimer l'annonce</h1>
+    <p>Êtes-vous sûr de vouloir supprimer l'annonce "{{ ad.title }}"?</p>
+    <form method="POST" action="{{ url_for('delete_ad', ad_id=ad.id) }}">
+        {{ form.csrf_token }}
+        <button class="btn btn-danger" type="submit">Supprimer</button>
+        <a class="btn btn-secondary" href="{{ url_for('view_ad', id=ad.id) }}">Annuler</a>
+    </form>
+{% endblock %}

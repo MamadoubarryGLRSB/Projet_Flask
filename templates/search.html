@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Search Results for "{{ query }}"</h1>
+    {% if not ads %}
+        <p>No results found.</p>
+    {% else %}
+        <ul>
+            {% for ad in ads %}
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                  <img src="{{ url_for('static', filename='uploads/' + ad.image) }}" class="card-img-top" alt="{{ ad.title }}">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ ad.title }}</h5>
+                    <p class="card-text">{{ ad.description }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <small class="text-muted">{{ ad.date_created.strftime('%d/%m/%Y') }}</small>
+                      <a href="{{ url_for('view_ad', id=ad.id) }}" class="btn btn-sm btn-outline-primary">Détail</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

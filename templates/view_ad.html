@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2>{{ ad.title }}</h2>
+      <hr>
+      <img src="{{ url_for('static', filename='uploads/' + ad.image) }}" class="img-fluid" alt="{{ ad.title }}">
+      <p class="my-4">{{ ad.description }}</p>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Prix : {{ ad.price }} fcfa</li>
+        <li class="list-group-item">Catégorie : {{ ad.category.name }}</li>
+        <li class="list-group-item">Localisation : {{ ad.location.name }}</li>
+        <li class="list-group-item">Date de création : {{ ad.date_created.strftime('%d/%m/%Y %H:%M:%S') }}</li>
+        <li class="list-group-item">Vues : {{ ad.views }}</li>
+      </ul>
+      {% if current_user == ad.user %}
+        <div class="mt-4">
+          <a href="{{ url_for('edit_ad', id=ad.id) }}" class="btn btn-primary">Modifier</a>
+          <a href="{{ url_for('delete_ad', ad_id=ad.id) }}" class="btn btn-danger">Supprimer</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

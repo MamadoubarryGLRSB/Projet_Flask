@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Modifier les informations de l'utilisateur</h1>
+  <form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+      {{ form.phone_number.label }}
+      {{ form.phone_number(class="form-control", disabled="disabled") }}
+    </div>
+    <div class="form-group">
+      {{ form.full_name.label }}
+      {{ form.full_name(class="form-control") }}
+      {% for error in form.full_name.errors %}
+        <span class="text-danger">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="form-group">
+      {{ form.address.label }}
+      {{ form.address(class="form-control") }}
+      {% for error in form.address.errors %}
+        <span class="text-danger">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="form-group">
+      {{ form.password.label }}
+      {{ form.password(class="form-control") }}
+      {% for error in form.password.errors %}
+        <span class="text-danger">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="form-group">
+      {{ form.confirm_password.label }}
+      {{ form.confirm_password(class="form-control") }}
+      {% for error in form.confirm_password.errors %}
+        <span class="text-danger">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+  </form>
+{% endblock %}

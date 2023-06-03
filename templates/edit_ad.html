@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Modifier votre annonce</h1>
+  <form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+      {{ form.title.label }}
+      {{ form.title(class="form-control") }}
+      {% for error in form.title.errors %}
+        <span class="text-danger">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="form-group">
+      {{ form.description.label }}
+      {{ form.description(class="form-control") }}
+      {% for error in form.description.errors %}
+        <span class="text-danger">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="form-group">
+      {{ form.price.label }}
+      {{ form.price(class="form-control") }}
+      {% for error in form.price.errors %}
+        <span class="text-danger">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="form-group">
+      {{ form.category.label }}
+      {{ form.category(class="form-control") }}
+      {% for error in form.category.errors %}
+        <span class="text-danger">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="form-group">
+      {{ form.location.label }}
+      {{ form.location(class="form-control") }}
+      {% for error in form.location.errors %}
+        <span class="text-danger">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <button type="submit" class="btn btn-primary">Modifier l'annonce</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-4">
+        <h2>Filtres</h2>
+        <form method="GET" action="{{ url_for('list_ads') }}">
+            <div class="form-group">
+                <label for="category">Catégorie</label>
+                <select class="form-control" id="category" name="category">
+                    <option value="">Toutes les catégories</option>
+                    {% for category in categories %}
+                        <option value="{{ category.name }}" {% if category.name == selected_category %}selected{% endif %}>{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="location">Emplacement</label>
+                <select class="form-control" id="location" name="location">
+                    <option value="">Tous les emplacements</option>
+                    {% for location in locations %}
+                        <option value="{{ location.name }}" {% if location.name == selected_location %}selected{% endif %}>{{ location.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Filtrer</button>
+        </form>
+    </div>
+
+    <!-- Ads List -->
+    <div class="col-md-8">
+        <h2>{% if selected_category %}Annonces dans la catégorie "{{ selected_category }}"{% else %}Toutes les annonces{% endif %}</h2>
+        {% if selected_location %}
+            <p>Emplacement sélectionné: "{{ selected_location }}"</p>
+        {% endif %}
+        {% if ads %}
+            <ul>
+                {% for ad in ads %}
+                <div class="col-md-4">
+                  <div class="card mb-4 shadow-sm">
+                    <img src="{{ url_for('static', filename='uploads/' + ad.image) }}" class="card-img-top" alt="{{ ad.title }}">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ ad.title }}</h5>
+                      <p class="card-text">{{ ad.description }}</p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">{{ ad.date_created.strftime('%d/%m/%Y') }}</small>
+                        <a href="{{ url_for('view_ad', id=ad.id) }}" class="btn btn-sm btn-outline-primary">Détail</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>  
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Aucune annonce trouvée pour ces filtres.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
